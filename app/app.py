@@ -107,7 +107,7 @@ def addData():
 
     return message_to_display
 @app.route('/sql-show')
-def addData():            
+def showData():            
     try:
         conn = psycopg2.connect(database="appdirectdb", user='postgres', password='postgres', host='postgresql-service', port= '5432')
         message_to_display = "Connectend to Database <br>"
