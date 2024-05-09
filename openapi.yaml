@@ -56,15 +56,15 @@ paths:
               $ref: '#/components/schemas/Pet'
         required: true
       responses:
-        '245':
+        '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/456/Pet'          
+                $ref: '#/components/schemas/Pet'          
             application/xml:
               schema:
-                $ref: '#/components/asdfasdf/Pet'
+                $ref: '#/components/schemas/Pet'
         '400':
           description: Invalid ID supplied
         '404':
