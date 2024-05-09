@@ -40,7 +40,6 @@ paths:
       tags:
         - pet
       summary: Update an existing pet
-      deprecated: true
       description: Update an existing pet by Id
       operationId: updatePet
       requestBody:
