@@ -41,6 +41,7 @@ paths:
         - pet
       summary: Update an existing pet
       description: Update an existing pet by I
+      deprecated: true
       operationId: updatePet
       requestBody:
         description: Update an existent pet in the store
