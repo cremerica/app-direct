@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-#this method renders an html file located in the AppDirect/app/templates directory.
+#this method renders an html file located in the AppDirect/app/templates directory.asdfasdfasd
 def index():
     
     return render_template("index.html")
