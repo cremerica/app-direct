@@ -19,7 +19,7 @@ def index():
 # this was simply a test to see how to display a message by using a different route.
 def test():
    
-    return "This is the test"
+    return "This is the test to see what appens\\\"
 
 @app.route('/sql-check')
 def checkDB():
