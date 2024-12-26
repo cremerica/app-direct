@@ -5,7 +5,7 @@ metadata:
     app: app-direct
   name: app-direct
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: app-direct
