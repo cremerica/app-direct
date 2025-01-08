@@ -6,4 +6,4 @@ The application provides output to stdout and can be obtained via `kubectl logs 
 
 This repository also includes a Github Action workflow to deploy to an EC2 instance for testing. Have fun!!!!!
 
-use this repo at your own risk
+
