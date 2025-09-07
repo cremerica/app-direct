@@ -1,0 +1,49 @@
+pipeline:
+  name: Basic Curl Pipeline
+  identifier: basic_curl_pipeline
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Execute Curl Command
+        identifier: curl_stage
+        description: Stage to execute a curl command
+        type: CI
+        spec:
+          cloneCodebase: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Curl Request
+                  identifier: curl_request
+                  spec:
+                    shell: Bash
+                    command: |
+                      echo "Executing curl command..."
+                      
+                      # Basic GET request
+                      curl -X GET \
+                        -H "Content-Type: application/json" \
+                        -H "User-Agent: Harness-Pipeline" \
+                        https://httpbin.org/get
+                      
+                      echo "Curl command completed successfully"
+                      
+                      # Example POST request (commented out)
+                      # curl -X POST \
+                      #   -H "Content-Type: application/json" \
+                      #   -d '{"key": "value", "message": "Hello from Harness"}' \
+                      #   https://httpbin.org/post
+                    envVariables: {}
+                    outputVariables: []
+                  timeout: 10m
+                  failureStrategies: []
+        variables: []
