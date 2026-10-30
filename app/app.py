@@ -8,6 +8,10 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+# Database host: defaults to the Kubernetes service name, but can be overridden
+# (for example, DB_HOST=localhost when running Postgres locally with Flox).
+DB_HOST = os.environ.get("DB_HOST", "postgresql-service")
+
 
 @app.route('/')
 #this method renders an html file located in the AppDirect/app/templates directory.
@@ -27,7 +31,7 @@ def checkDB():
     #This method tries to connect to the default Postgres database and gets a list of databases - can be used to verify that the database exists
     conn = None
     try:
-        conn = psycopg2.connect(database="postgres", user='postgres', password='postgres', host='postgresql-service', port= '5432')
+        conn = psycopg2.connect(database="postgres", user='postgres', password='postgres', host=DB_HOST, port= '5432')
         message_to_display = "Connectend to Database <br>"
     except Exception as e:
         message_to_display = "There was a problem connecting to the database <br>" + str(e)
@@ -50,7 +54,7 @@ def createDB():
     db_exists = False
     # Let's first connect
     try:
-        conn = psycopg2.connect(database="postgres", user='postgres', password='postgres', host='postgresql-service', port= '5432')
+        conn = psycopg2.connect(database="postgres", user='postgres', password='postgres', host=DB_HOST, port= '5432')
         message_to_display = "Connectend to postgres default database <br>"
         message_to_display += "Checking to see if AppDirect database exists... <br>"
     except Exception as e: 
@@ -65,7 +69,7 @@ def createDB():
             cur.close()
             conn.close()
             conn = None
-            conn = psycopg2.connect(database="appdirectdb", user='postgres', password='postgres', host='postgresql-service', port= '5432')
+            conn = psycopg2.connect(database="appdirectdb", user='postgres', password='postgres', host=DB_HOST, port= '5432')
             if conn is not None:
                 conn.autocommit = True
                 cur = conn.cursor()
@@ -85,7 +89,7 @@ def createDB():
 @app.route('/sql-add')
 def addData():            
     try:
-        conn = psycopg2.connect(database="appdirectdb", user='postgres', password='postgres', host='postgresql-service', port= '5432')
+        conn = psycopg2.connect(database="appdirectdb", user='postgres', password='postgres', host=DB_HOST, port= '5432')
         message_to_display = "Connectend to Database <br>"
     except Exception as e:
         message_to_display = "Unable to connect to the Database. Try browsing /sql-check to see if the Database exists <br>" + str(e)
@@ -109,7 +113,7 @@ def addData():
 @app.route('/sql-show')
 def showData():            
     try:
-        conn = psycopg2.connect(database="appdirectdb", user='postgres', password='postgres', host='postgresql-service', port= '5432')
+        conn = psycopg2.connect(database="appdirectdb", user='postgres', password='postgres', host=DB_HOST, port= '5432')
         message_to_display = "Connectend to Database <br>"
     except Exception as e:
         message_to_display = "Unable to connect to the Database. Try browsing /sql-check to see if the Database exists <br>" + str(e)
@@ -117,8 +121,9 @@ def showData():
         conn.autocommit = True
         cur = conn.cursor()
         try:            
-            query_result = cur.execute("SELECT * from tblrecords")
-            message_to_display += str(query_result)
+            cur.execute("SELECT * from tblrecords")
+            for row in cur.fetchall():
+                message_to_display += str(row[0]) + "<br>"
             cur.close()
         except Exception as e:
             message_to_display += " There was an error:" + str(e)

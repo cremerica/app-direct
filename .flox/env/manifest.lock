@@ -1,0 +1,316 @@
+{
+  "lockfile-version": 1,
+  "manifest": {
+    "schema-version": "1.19.0",
+    "install": {
+      "postgresql": {
+        "pkg-path": "postgresql_16"
+      },
+      "python": {
+        "pkg-path": "python311"
+      }
+    },
+    "vars": {
+      "DB_HOST": "localhost",
+      "PAGE_MESSAGE": "Hello from Flox",
+      "PGHOST": "localhost",
+      "PGPORT": "5432",
+      "PGUSER": "postgres"
+    },
+    "hook": {
+      "on-activate": "  # 1. Postgres data lives in the environment's cache folder (not committed to git).\n  export PGDATA=\"$FLOX_ENV_CACHE/pgdata\"\n  if [ ! -d \"$PGDATA\" ]; then\n    echo \"Creating a local Postgres database cluster...\"\n    initdb -U postgres --auth=trust -D \"$PGDATA\" > /dev/null\n  fi\n\n  # 2. Python packages go in a virtual environment inside the cache folder.\n  export PYTHON_DIR=\"$FLOX_ENV_CACHE/python\"\n  if [ ! -d \"$PYTHON_DIR\" ]; then\n    echo \"Creating a Python virtual environment...\"\n    python -m venv \"$PYTHON_DIR\"\n  fi\n  (\n    source \"$PYTHON_DIR/bin/activate\"\n    pip install -r requirements.txt --quiet\n  )\n"
+    },
+    "profile": {
+      "bash": "  source \"$PYTHON_DIR/bin/activate\"\n",
+      "zsh": "  source \"$PYTHON_DIR/bin/activate\"\n"
+    },
+    "options": {},
+    "services": {
+      "postgres": {
+        "command": "exec postgres -D \"$PGDATA\" -p \"$PGPORT\" -c listen_addresses=localhost -c unix_socket_directories="
+      }
+    }
+  },
+  "packages": [
+    {
+      "attr_path": "postgresql_16",
+      "broken": false,
+      "derivation": "/nix/store/7bqpp8lknhlnsi5mm1lsm63vwhr0xsm9-postgresql-16.14.drv",
+      "description": "Powerful, open source object-relational database system",
+      "install_id": "postgresql",
+      "license": "PostgreSQL",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "postgresql-16.14",
+      "pname": "postgresql_16",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:13:36.234624Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "16.14",
+      "outputs_to_install": [
+        "man",
+        "out"
+      ],
+      "outputs": {
+        "dev": "/nix/store/irzgi7x05drr8h0his63vmk63365ydpv-postgresql-16.14-dev",
+        "doc": "/nix/store/mfhsxslm99dhlxq42vmqkdb2xh8d29gf-postgresql-16.14-doc",
+        "jit": "/nix/store/gbh9ar7b28ifgnrq27skqaqj0bpsmb00-postgresql-16.14-jit",
+        "lib": "/nix/store/1q2mlskcp3cxcadl5kym7rknzyycmvc8-postgresql-16.14-lib",
+        "man": "/nix/store/ywhbj7rr7jng9drzjf5vax3p93xpi7gs-postgresql-16.14-man",
+        "out": "/nix/store/ds3fl9ss6zbdx6cqgsnk85sk5z46mg48-postgresql-16.14",
+        "plperl": "/nix/store/7rxylhdjn365wmmc4shbvvsjp0g4slpz-postgresql-16.14-plperl",
+        "plpython3": "/nix/store/41q55agwgsc48scs3pkmcy504h5d8c2n-postgresql-16.14-plpython3",
+        "pltcl": "/nix/store/p2j74gayvzxfz8bwxnygjh0nybwjhmgq-postgresql-16.14-pltcl"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "postgresql_16",
+      "broken": false,
+      "derivation": "/nix/store/lj7jbdf5qgai7w6hwbxdp4c2qax7i82k-postgresql-16.14.drv",
+      "description": "Powerful, open source object-relational database system",
+      "install_id": "postgresql",
+      "license": "PostgreSQL",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "postgresql-16.14",
+      "pname": "postgresql_16",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:42:21.542800Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "16.14",
+      "outputs_to_install": [
+        "man",
+        "out"
+      ],
+      "outputs": {
+        "debug": "/nix/store/wgn805sz966d1059g0xql7kxmpr0acn0-postgresql-16.14-debug",
+        "dev": "/nix/store/r00pzjlix6sjv7lkkj9c3d7b6svp5hv6-postgresql-16.14-dev",
+        "doc": "/nix/store/fp497qr2zh4jhx0kxk9vs0s6lg9zkaya-postgresql-16.14-doc",
+        "jit": "/nix/store/ca21z7gki3gfp1hx01l49gn6hm1fzppv-postgresql-16.14-jit",
+        "lib": "/nix/store/jn2ql2snab36012q5sp4fgph0s4bys3n-postgresql-16.14-lib",
+        "man": "/nix/store/cljw01k4spp5qp50qsb6q87y0ygbrsdw-postgresql-16.14-man",
+        "out": "/nix/store/fpl4fa2rp8122z6crhn09il2irb1b7c8-postgresql-16.14",
+        "plperl": "/nix/store/mk4k78dvqq8f0cnfb16p7y98fsdx2bhs-postgresql-16.14-plperl",
+        "plpython3": "/nix/store/s73kjr8ykp01vfym6rvs3w7dvcbfmqsr-postgresql-16.14-plpython3",
+        "pltcl": "/nix/store/jmyvz2j5akkgx0ii8m1r4ifl5mdplxp0-postgresql-16.14-pltcl"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "postgresql_16",
+      "broken": false,
+      "derivation": "/nix/store/gqz4r07hqhzz0b27jg79zbpvwvs9y60n-postgresql-16.14.drv",
+      "description": "Powerful, open source object-relational database system",
+      "install_id": "postgresql",
+      "license": "PostgreSQL",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "postgresql-16.14",
+      "pname": "postgresql_16",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:09:51.840361Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "16.14",
+      "outputs_to_install": [
+        "man",
+        "out"
+      ],
+      "outputs": {
+        "dev": "/nix/store/k9lb24d4cs1xwv81bs65dwcxsdwzn7a0-postgresql-16.14-dev",
+        "doc": "/nix/store/y0k5jr6xrdgw53albh53gq7r7w21s37a-postgresql-16.14-doc",
+        "jit": "/nix/store/044j1dh4m4mrv0jwj1k4xrn37a9800hc-postgresql-16.14-jit",
+        "lib": "/nix/store/jip3v153xlkvihvrx5wpsvdpp017i9fv-postgresql-16.14-lib",
+        "man": "/nix/store/x18adqzi05dxhs6hmnja28i916nv1aig-postgresql-16.14-man",
+        "out": "/nix/store/7h834nzs9fh9zrnlpl4cmq54fbpr41mm-postgresql-16.14",
+        "plperl": "/nix/store/a895v77yx5z1w4da010rxlfx8shz53wb-postgresql-16.14-plperl",
+        "plpython3": "/nix/store/ivljnznphiml1z5szq0d6scz3cpnzm2d-postgresql-16.14-plpython3",
+        "pltcl": "/nix/store/rfmmlhf6apbf72z58p1sa0k9nmvhmbs9-postgresql-16.14-pltcl"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "postgresql_16",
+      "broken": false,
+      "derivation": "/nix/store/n41n46ldaisywhb0qhjshj0psnyjslfl-postgresql-16.14.drv",
+      "description": "Powerful, open source object-relational database system",
+      "install_id": "postgresql",
+      "license": "PostgreSQL",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "postgresql-16.14",
+      "pname": "postgresql_16",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:41:28.027455Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "16.14",
+      "outputs_to_install": [
+        "man",
+        "out"
+      ],
+      "outputs": {
+        "debug": "/nix/store/8gp44hvzc29i1cial0imr02ccika7jw6-postgresql-16.14-debug",
+        "dev": "/nix/store/777spv5vlx1p5rn6lnk9bxc0q1zz7k41-postgresql-16.14-dev",
+        "doc": "/nix/store/j3y5zacs4ckxgmqpgbii62ichm0sw7gd-postgresql-16.14-doc",
+        "jit": "/nix/store/xmg3xzhlpg32mppmy1kcjnigskhvi9ii-postgresql-16.14-jit",
+        "lib": "/nix/store/hpz59l2m698w1m3jnz0knrsbha6wzrwp-postgresql-16.14-lib",
+        "man": "/nix/store/jak4g8z63pkny6f9pay6zypizrfpd8j7-postgresql-16.14-man",
+        "out": "/nix/store/zjpr4rk3vqlfz012idz4i6f04g5naiwz-postgresql-16.14",
+        "plperl": "/nix/store/vkj1sn2ddxdb7fdis4brajg0r57y9pkd-postgresql-16.14-plperl",
+        "plpython3": "/nix/store/wdwvffzr2i566wfa2ljj6m5aybd4788n-postgresql-16.14-plpython3",
+        "pltcl": "/nix/store/ldqj4ii1kzkcff2dwd66d6rns2cccfzh-postgresql-16.14-pltcl"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "python311",
+      "broken": false,
+      "derivation": "/nix/store/3a1f0j7pwas4zvz79wnvgggvaki3ml3p-python3-3.11.15.drv",
+      "description": "High-level dynamically-typed programming language",
+      "install_id": "python",
+      "license": "Python-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "python3-3.11.15",
+      "pname": "python311",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:13:37.150246Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "python3-3.11.15",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/3xqryhvq65kg2ahqjydcfwmhnbn9ny5i-python3-3.11.15"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "python311",
+      "broken": false,
+      "derivation": "/nix/store/14g2mji4fsvg90h5p74lf3hldmxdagng-python3-3.11.15.drv",
+      "description": "High-level dynamically-typed programming language",
+      "install_id": "python",
+      "license": "Python-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "python3-3.11.15",
+      "pname": "python311",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:42:22.926242Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "python3-3.11.15",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "debug": "/nix/store/qp1ki9z28qmhlw2wp27p4vh2gpp1lsl7-python3-3.11.15-debug",
+        "out": "/nix/store/lwrvc4vvrab8yavs8fp6vf1xh1v1vzjc-python3-3.11.15"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "python311",
+      "broken": false,
+      "derivation": "/nix/store/8bhjnvxm2b52kzaak8xhk005c7h06a0x-python3-3.11.15.drv",
+      "description": "High-level dynamically-typed programming language",
+      "install_id": "python",
+      "license": "Python-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "python3-3.11.15",
+      "pname": "python311",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:09:53.024332Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "python3-3.11.15",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/4w7i02q2kvwbhi4xmw14rkwbmv5s1h8n-python3-3.11.15"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "python311",
+      "broken": false,
+      "derivation": "/nix/store/m63kmcq43bwjgfmhn1b3mi0pw916h7v2-python3-3.11.15.drv",
+      "description": "High-level dynamically-typed programming language",
+      "install_id": "python",
+      "license": "Python-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "python3-3.11.15",
+      "pname": "python311",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:41:29.491484Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "python3-3.11.15",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "debug": "/nix/store/j8bh7dnm47v3blyhvrvky3c4qdy2sxc3-python3-3.11.15-debug",
+        "out": "/nix/store/2m2lgnmm5m63i5c9hr9najkpmi7af4jc-python3-3.11.15"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    }
+  ]
+}

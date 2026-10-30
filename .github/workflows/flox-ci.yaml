@@ -1,0 +1,23 @@
+# Runs the app's smoke test inside the same Flox environment developers use.
+# Same Python, same Postgres, same packages as every laptop, from the same lockfile.
+name: flox-ci
+
+on:
+  push:
+    branches: [main, floxify]
+  pull_request:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Install Flox
+        uses: flox/install-flox-action@v2
+
+      - name: Run the smoke test inside the Flox environment
+        uses: flox/activate-action@v1
+        with:
+          command: ./ci/smoke-test.sh
